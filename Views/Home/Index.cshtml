@@ -1,29 +1,46 @@
-﻿@model List<MvcTodoApp.Models.TaskItem>
+﻿﻿@model List<MvcTodoApp.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>تطبيق المهام اليومية - MVC</title>
+    <title>MVC - تطبيق المهام اليومية</title>
 </head>
+
 <body>
     <h1>قائمة المهام اليومية</h1>
+
     <ul>
         @foreach (var task in Model)
         {
             <li>
-                @if(task.IsComplete)
+                @if (task.IsComplete)
                 {
                     <s>@task.Title</s>
                 }
                 else
                 {
                     @task.Title
+
                     <form method="post" asp-action="CompleteTask" style="display:inline;">
                         <input type="hidden" name="id" value="@task.Id" />
                         <button type="submit">اكتملت</button>
                     </form>
 
+                    <form method="post" asp-action="EditTask" style="display:inline; margin-left: 10px;">
+                        <input type="hidden" name="id" value="@task.Id" />
+                        <input type="text" name="newTitle" value="@task.Title" size="20" />
+                        <button type="submit">تعديل</button>
+                    </form>
                 }
             </li>
         }
